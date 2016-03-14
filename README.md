@@ -4,6 +4,7 @@
 
 http://localhost:8080/tt-linecharacteristics-service/linecharacteristics?telephoneNumber=01630656588&postCode=TF93DJ
 
+```
 {
    "getLineCharacteristicsResult":{
       "status":{
@@ -82,11 +83,13 @@ http://localhost:8080/tt-linecharacteristics-service/linecharacteristics?telepho
       }
    }
 }
+```
 
 ## Virgin Media
 
 http://localhost:8080/tt-linecharacteristics-service/linecharacteristics?telephoneNumber=01827708166&postCode=B772LY
 
+```
 {  
    "getLineCharacteristicsResult":{  
       "status":{  
@@ -106,11 +109,13 @@ http://localhost:8080/tt-linecharacteristics-service/linecharacteristics?telepho
       "responseDetails":null
    }
 }
+```
 
 ## Cable and Wireless !!!
 
 http://localhost:8080/tt-linecharacteristics-service/linecharacteristics?telephoneNumber=01211234567&postCode=B927HD
 
+```
 {  
    "getLineCharacteristicsResult":{  
       "status":{  
@@ -130,9 +135,11 @@ http://localhost:8080/tt-linecharacteristics-service/linecharacteristics?telepho
       "responseDetails":null
    }
 }
+```
 
 ## Unknown Number
 
+```
 {  
    "getLineCharacteristicsResult":{  
       "status":{  
@@ -152,10 +159,11 @@ http://localhost:8080/tt-linecharacteristics-service/linecharacteristics?telepho
       "responseDetails":null
    }
 }
-
+```
 
 ##  Error
 
+```
 {  
    "getLineCharacteristicsResult":{  
       "status":{  
@@ -175,3 +183,4 @@ http://localhost:8080/tt-linecharacteristics-service/linecharacteristics?telepho
       "responseDetails":null
    }
 }
+```
