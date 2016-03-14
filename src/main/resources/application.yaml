@@ -1,0 +1,10 @@
+server:
+  contextPath: '/tt-linecharacteristics-service'
+
+
+LineCharacteristicsWS:
+  soapAction: 'http://llu.webservices.opalonline.co.uk/LineCharacteristicsWS/GetLineCharacteristics'
+  serviceEndpoint: 'https://llu.webservices.opalonline.co.uk/LineCharacteristicsWSV6/LineCharacteristicsWS.asmx'
+  username: 'api@first-utility.com'
+  password: '1690uKAY'
+  agentId: 1407

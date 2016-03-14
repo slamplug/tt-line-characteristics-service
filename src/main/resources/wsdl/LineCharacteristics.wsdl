@@ -1,0 +1,511 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+                  xmlns:tns="http://llu.webservices.opalonline.co.uk/LineCharacteristicsWS"
+                  xmlns:s="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  targetNamespace="http://llu.webservices.opalonline.co.uk/LineCharacteristicsWS"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://llu.webservices.opalonline.co.uk/LineCharacteristicsWS">
+            <s:element name="GetLineCharacteristics">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="request" nillable="true" type="tns:GetLineCharacteristicsRequest" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="GetLineCharacteristicsRequest">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:AuthenticateRequestBase">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="RequestDetails" nillable="true" type="tns:RequestType" />
+                            <s:element minOccurs="1" maxOccurs="1" name="UserConsent" type="tns:UserConsentEnum" />
+                            <s:element minOccurs="1" maxOccurs="1" name="ServiceType" type="tns:ServiceTypeEnum" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="AuthenticateRequestBase" abstract="true">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:RequestBase">
+                        <s:sequence>
+                            <s:element minOccurs="0" maxOccurs="1" name="UserCredentials" type="tns:Credentials" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="RequestBase" abstract="true" />
+            <s:complexType name="Credentials">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="AgentID" type="s:int" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="RequestType" abstract="true" />
+            <s:complexType name="PostcodeRequest">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:RequestType">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="Postcode" nillable="true" type="s:string" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="GoldAddressKeyRequest">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:RequestType">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="GoldAddressKey" nillable="true" type="s:string" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="TelephoneNumberRequest">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:RequestType">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="TelephoneNumber" nillable="true" type="s:string" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="NonGoldAddressKeyRequest">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:RequestType">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="NonGoldAddressKey" nillable="true" type="s:string" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="TelephonePostcodeRequest">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:RequestType">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="TelephoneNumber" nillable="true" type="s:string" />
+                            <s:element minOccurs="1" maxOccurs="1" name="Postcode" nillable="true" type="s:string" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="AccessLineIDRequest">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:RequestType">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="AccessLineID" nillable="true" type="s:string" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:simpleType name="UserConsentEnum">
+                <s:restriction base="s:string">
+                    <s:enumeration value="Yes" />
+                    <s:enumeration value="No" />
+                </s:restriction>
+            </s:simpleType>
+            <s:simpleType name="ServiceTypeEnum">
+                <s:restriction base="s:string">
+                    <s:enumeration value="MPF" />
+                    <s:enumeration value="SMPF" />
+                </s:restriction>
+            </s:simpleType>
+            <s:element name="GetLineCharacteristicsResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="GetLineCharacteristicsResult" type="tns:GetLineCharacteristicsResult" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="GetLineCharacteristicsResult">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:ResponseBase">
+                        <s:sequence>
+                            <s:element minOccurs="0" maxOccurs="1" name="ResponseDetails" type="tns:ArrayOfCharacteristicsBase" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ResponseBase" abstract="true">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="Status" type="tns:Status" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Status">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="HasErrors" type="s:boolean" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfError" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfError">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="Error" nillable="true" type="tns:Error" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Error">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="ErrorCategory" type="tns:ErrorCategoryEnum" />
+                    <s:element minOccurs="0" maxOccurs="1" name="InputName" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="InputValue" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:simpleType name="ErrorCategoryEnum">
+                <s:restriction base="s:string">
+                    <s:enumeration value="SystemError" />
+                    <s:enumeration value="RequestError" />
+                </s:restriction>
+            </s:simpleType>
+            <s:complexType name="ArrayOfCharacteristicsBase">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="CharacteristicsBase" nillable="true" type="tns:CharacteristicsBase" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="CharacteristicsBase" abstract="true" />
+            <s:complexType name="LineCharacteristicsBase" abstract="true">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:CharacteristicsBase">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="ExchangeDetails" nillable="true" type="tns:ExchangeInfo" />
+                            <s:element minOccurs="0" maxOccurs="1" name="TechnologyMessages" type="tns:ArrayOfTechnologyMessage" />
+                            <s:element minOccurs="0" maxOccurs="1" name="ProductMessages" type="tns:ArrayOfProductMessage" />
+                            <s:element minOccurs="0" maxOccurs="1" name="EstimatedSpeedInformation" type="tns:ArrayOfEstimatedSpeedInformation" />
+                            <s:element minOccurs="0" maxOccurs="1" name="AdditionalInformation" type="tns:ArrayOfAdditionalInformation" />
+                            <s:element minOccurs="0" maxOccurs="1" name="DSLSpeedInformation" type="tns:DSLSpeedInformation" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ExchangeInfo">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="CSSExchangeDistrictCode" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="ExchangeCode" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="ExchangeName" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="ExchangeState" type="tns:ExchangeStateEnum" />
+                    <s:element minOccurs="1" maxOccurs="1" name="ExchangeCapacity" type="tns:ExchangeCapacityEnum" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ProductMessages" type="tns:ArrayOfProductMessage" />
+                    <s:element minOccurs="1" maxOccurs="1" name="ForecastDate" nillable="true" type="s:dateTime" />
+                    <s:element minOccurs="0" maxOccurs="1" name="CircuitLineLength" type="tns:LineLengthDetail" />
+                </s:sequence>
+            </s:complexType>
+            <s:simpleType name="ExchangeStateEnum">
+                <s:restriction base="s:string">
+                    <s:enumeration value="NotSet" />
+                    <s:enumeration value="Unplanned" />
+                    <s:enumeration value="Targeted" />
+                    <s:enumeration value="Scheduled" />
+                    <s:enumeration value="Unbundling" />
+                    <s:enumeration value="Completing" />
+                    <s:enumeration value="Live" />
+                    <s:enumeration value="LiveTU" />
+                    <s:enumeration value="Suspended" />
+                </s:restriction>
+            </s:simpleType>
+            <s:simpleType name="ExchangeCapacityEnum">
+                <s:restriction base="s:string">
+                    <s:enumeration value="NotSet" />
+                    <s:enumeration value="R" />
+                    <s:enumeration value="A" />
+                    <s:enumeration value="G" />
+                </s:restriction>
+            </s:simpleType>
+            <s:complexType name="ArrayOfProductMessage">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="ProductMessage" nillable="true" type="tns:ProductMessage" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ProductMessage">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="ProductCategory" nillable="true" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ProductAttributes" type="tns:ArrayOfProductAttribute" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfProductAttribute">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="ProductAttribute" nillable="true" type="tns:ProductAttribute" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ProductAttribute">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="AttributeName" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="AttributeValue" nillable="true" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="LineLengthDetail">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="MeasureType" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="Length" nillable="true" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfTechnologyMessage">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="TechnologyMessage" nillable="true" type="tns:TechnologyMessage" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="TechnologyMessage">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="Message" nillable="true" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfEstimatedSpeedInformation">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="EstimatedSpeedInformation" nillable="true" type="tns:EstimatedSpeedInformation" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="EstimatedSpeedInformation">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="EstimatedSpeedInformationType" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="EstimatedAnnexADownstreamSpeed" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="EstimatedAnnexAMaxRange" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="EstimatedAnnexAMinRange" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="MinThresholdAnnexA" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="EstimatedAnnexMDownstreamSpeed" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="EstimatedAnnexMUpstreamSpeed" nillable="true" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfAdditionalInformation">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="AdditionalInformation" nillable="true" type="tns:AdditionalInformation" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="AdditionalInformation">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="AdditionalInformationType" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="AdditionalInformationValue" nillable="true" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="DSLSpeedInformation">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="CurrentDSLType" type="tns:DSLType" />
+                    <s:element minOccurs="1" maxOccurs="1" name="CurrentServiceCapped" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="CurrentDownstreamSpeed" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="CurrentUpstreamSpeed" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="AttainableCurrentDownstreamSpeed" nillable="true" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="AttainableCurrentUpstreamSpeed" nillable="true" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="DSLType">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="xDSLType" type="tns:xDSLTypeEnum" />
+                </s:sequence>
+            </s:complexType>
+            <s:simpleType name="xDSLTypeEnum">
+                <s:restriction base="s:string">
+                    <s:enumeration value="G_992_5AnnexA" />
+                    <s:enumeration value="G_992_5AnnexM" />
+                </s:restriction>
+            </s:simpleType>
+            <s:complexType name="LineCharacteristicsForGoldAddressKey">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:LineCharacteristicsBase">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="GoldAddressKey" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="AccessLineID" type="s:string" />
+                            <s:element minOccurs="1" maxOccurs="1" name="AccessLineStatus" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentCP" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentReseller" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentResellerAgentID" type="s:int" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CareLevel" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="ServiceIncompatibility" type="tns:ServiceIncompatibilityEnum" />
+                            <s:choice minOccurs="1" maxOccurs="1">
+                                <s:element minOccurs="0" maxOccurs="1" name="StoppedLineDetails" type="tns:StoppedLineType" />
+                                <s:element minOccurs="0" maxOccurs="1" name="WorkingLineDetails" type="tns:WorkingLineType" />
+                            </s:choice>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:simpleType name="ServiceIncompatibilityEnum">
+                <s:restriction base="s:string">
+                    <s:enumeration value="OtherIncompatibleProduct" />
+                    <s:enumeration value="MultilinePBX" />
+                    <s:enumeration value="RedCareNBLS" />
+                    <s:enumeration value="Unknown" />
+                </s:restriction>
+            </s:simpleType>
+            <s:complexType name="StoppedLineType">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ServiceID" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="LastWorkingPartialDN" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="StoppedDate" type="s:dateTime" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ProductType" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="StoppedLineLocation" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="TerminationType" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="InstallationType" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="WorkingLineType">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="PartialDN" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="InstallationDN" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ProductType" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="PendingCeaseOrderIndicator" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="PendingCeaseCompletionDate" type="s:dateTime" />
+                    <s:element minOccurs="0" maxOccurs="1" name="WorkingLineLocation" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="TerminationType" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="InstallationType" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="LineCharacteristicsForAccessLineID">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:LineCharacteristicsBase">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="AccessLineID" nillable="true" type="s:string" />
+                            <s:element minOccurs="1" maxOccurs="1" name="AccessLineStatus" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentCP" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentReseller" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentResellerAgentID" type="s:int" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CareLevel" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="ServiceIncompatibility" type="tns:ServiceIncompatibilityEnum" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="LineCharacteristicsForTelephoneNumberPostcode">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:LineCharacteristicsBase">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="TelephoneNumber" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="AccessLineID" type="s:string" />
+                            <s:element minOccurs="1" maxOccurs="1" name="AccessLineStatus" nillable="true" type="s:string" />
+                            <s:element minOccurs="1" maxOccurs="1" name="Postcode" nillable="true" type="s:string" />
+                            <s:element minOccurs="1" maxOccurs="1" name="PostcodeMatch" type="tns:PostcodeMatchEnum" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentCP" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentReseller" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentResellerAgentID" type="s:int" />
+                            <s:element minOccurs="1" maxOccurs="1" name="NumberRangeHolder" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CareLevel" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="ServiceIncompatibility" type="tns:ServiceIncompatibilityEnum" />
+                            <s:element minOccurs="1" maxOccurs="1" name="NumberPortingInformation" nillable="true" type="s:string" />
+                            <s:choice minOccurs="1" maxOccurs="1">
+                                <s:element minOccurs="0" maxOccurs="1" name="WorkingLineDetails" type="tns:WorkingLineType" />
+                                <s:element minOccurs="0" maxOccurs="1" name="StoppedLineDetails" type="tns:StoppedLineType" />
+                            </s:choice>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:simpleType name="PostcodeMatchEnum">
+                <s:restriction base="s:string">
+                    <s:enumeration value="NotSet" />
+                    <s:enumeration value="Yes" />
+                    <s:enumeration value="No" />
+                </s:restriction>
+            </s:simpleType>
+            <s:complexType name="LineCharacteristicsForTelephoneNumber">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:LineCharacteristicsBase">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="TelephoneNumber" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="AccessLineID" type="s:string" />
+                            <s:element minOccurs="1" maxOccurs="1" name="AccessLineStatus" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentCP" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentReseller" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CurrentResellerAgentID" type="s:int" />
+                            <s:element minOccurs="1" maxOccurs="1" name="NumberRangeHolder" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="CareLevel" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="ServiceIncompatibility" type="tns:ServiceIncompatibilityEnum" />
+                            <s:element minOccurs="1" maxOccurs="1" name="NumberPortingInformation" nillable="true" type="s:string" />
+                            <s:choice minOccurs="1" maxOccurs="1">
+                                <s:element minOccurs="0" maxOccurs="1" name="WorkingLineDetails" type="tns:WorkingLineType" />
+                                <s:element minOccurs="0" maxOccurs="1" name="StoppedLineDetails" type="tns:StoppedLineType" />
+                            </s:choice>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ExchangeCharacteristicsForGoldAddressKey">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:CharacteristicsBase">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="GoldAddressKey" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="EstimatedSpeedInformation" type="tns:ArrayOfEstimatedSpeedInformation" />
+                            <s:element minOccurs="1" maxOccurs="1" name="ExchangeDetails" nillable="true" type="tns:ExchangeInfo" />
+                            <s:element minOccurs="0" maxOccurs="1" name="AdditionalInformation" type="tns:ArrayOfAdditionalInformation" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ExchangeCharacteristicsForNonGoldAddressKey">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:CharacteristicsBase">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="AddressKey" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="EstimatedSpeedInformation" type="tns:ArrayOfEstimatedSpeedInformation" />
+                            <s:element minOccurs="1" maxOccurs="1" name="ExchangeDetails" nillable="true" type="tns:ArrayOfExchangeInfo" />
+                            <s:element minOccurs="0" maxOccurs="1" name="AdditionalInformation" type="tns:ArrayOfAdditionalInformation" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ArrayOfExchangeInfo">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="ExchangeInfo" nillable="true" type="tns:ExchangeInfo" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ExchangeCharacteristicsForPostcode">
+                <s:complexContent mixed="false">
+                    <s:extension base="tns:CharacteristicsBase">
+                        <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="Postcode" nillable="true" type="s:string" />
+                            <s:element minOccurs="0" maxOccurs="1" name="EstimatedSpeedInformation" type="tns:ArrayOfEstimatedSpeedInformation" />
+                            <s:element minOccurs="1" maxOccurs="1" name="ExchangeDetails" nillable="true" type="tns:ArrayOfExchangeInfo" />
+                            <s:element minOccurs="0" maxOccurs="1" name="AdditionalInformation" type="tns:ArrayOfAdditionalInformation" />
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="GetLineCharacteristicsSoapIn">
+        <wsdl:part name="parameters" element="tns:GetLineCharacteristics" />
+    </wsdl:message>
+    <wsdl:message name="GetLineCharacteristicsSoapOut">
+        <wsdl:part name="parameters" element="tns:GetLineCharacteristicsResponse" />
+    </wsdl:message>
+    <wsdl:portType name="LineCharacteristicsWSSoap">
+        <wsdl:operation name="GetLineCharacteristics">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieves line characteristics for a given Telephone Number, Access Line ID, Gold Address Key, Non-Gold Address Key or Postcode</wsdl:documentation>
+            <wsdl:input message="tns:GetLineCharacteristicsSoapIn" />
+            <wsdl:output message="tns:GetLineCharacteristicsSoapOut" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="LineCharacteristicsWSSoap" type="tns:LineCharacteristicsWSSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="GetLineCharacteristics">
+            <soap:operation soapAction="http://llu.webservices.opalonline.co.uk/LineCharacteristicsWS/GetLineCharacteristics" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="LineCharacteristicsWSSoap12" type="tns:LineCharacteristicsWSSoap">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="GetLineCharacteristics">
+            <soap12:operation soapAction="http://llu.webservices.opalonline.co.uk/LineCharacteristicsWS/GetLineCharacteristics" style="document" />
+            <wsdl:input>
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="LineCharacteristicsWS">
+        <wsdl:port name="LineCharacteristicsWSSoap" binding="tns:LineCharacteristicsWSSoap">
+            <soap:address location="https://llu.webservices.opalonline.co.uk/LineCharacteristicsWSV6/LineCharacteristicsWS.asmx" />
+        </wsdl:port>
+        <wsdl:port name="LineCharacteristicsWSSoap12" binding="tns:LineCharacteristicsWSSoap12">
+            <soap12:address location="https://llu.webservices.opalonline.co.uk/LineCharacteristicsWSV6/LineCharacteristicsWS.asmx" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,18 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <GetLineCharacteristicsResponse xmlns="http://llu.webservices.opalonline.co.uk/LineCharacteristicsWS">
+            <GetLineCharacteristicsResult>
+                <Status>
+                    <HasErrors>true</HasErrors>
+                    <Errors>
+                        <Error>
+                            <ErrorCode>LCPTWS1004_AgentID_37</ErrorCode>
+                            <ErrorMessage>Porting cannot be performed for Number Range Holder: Cable &amp; Wireless</ErrorMessage>
+                            <ErrorCategory>RequestError</ErrorCategory>
+                        </Error>
+                    </Errors>
+                </Status>
+            </GetLineCharacteristicsResult>
+        </GetLineCharacteristicsResponse>
+    </soap:Body>
+</soap:Envelope>

@@ -1,0 +1,57 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soap:Body>
+        <GetLineCharacteristicsResponse xmlns="http://llu.webservices.opalonline.co.uk/LineCharacteristicsWS">
+            <GetLineCharacteristicsResult>
+                <Status>
+                    <HasErrors>false</HasErrors>
+                    <Errors/>
+                </Status>
+                <ResponseDetails>
+                    <CharacteristicsBase xsi:type="LineCharacteristicsForTelephoneNumberPostcode">
+                        <ExchangeDetails>
+                            <CSSExchangeDistrictCode>WN</CSSExchangeDistrictCode>
+                            <ExchangeCode>WNMD</ExchangeCode>
+                            <ExchangeName>MARKET DRAYTON</ExchangeName>
+                            <ExchangeState>Live</ExchangeState>
+                            <ExchangeCapacity>G</ExchangeCapacity>
+                            <ForecastDate>2010-04-07T00:00:00</ForecastDate>
+                            <CircuitLineLength>
+                                <MeasureType>CircuitEstimated</MeasureType>
+                                <Length>845</Length>
+                            </CircuitLineLength>
+                        </ExchangeDetails>
+                        <TechnologyMessages>
+                            <TechnologyMessage>
+                                <Code>GEA</Code>
+                                <Message>Generic Ethernet Access</Message>
+                            </TechnologyMessage>
+                        </TechnologyMessages>
+                        <EstimatedSpeedInformation>
+                            <EstimatedSpeedInformation>
+                                <EstimatedSpeedInformationType>Standard</EstimatedSpeedInformationType>
+                                <EstimatedAnnexADownstreamSpeed>16097</EstimatedAnnexADownstreamSpeed>
+                                <EstimatedAnnexAMaxRange>19304</EstimatedAnnexAMaxRange>
+                                <EstimatedAnnexAMinRange>9695</EstimatedAnnexAMinRange>
+                                <MinThresholdAnnexA>7431</MinThresholdAnnexA>
+                                <EstimatedAnnexMDownstreamSpeed>14097</EstimatedAnnexMDownstreamSpeed>
+                                <EstimatedAnnexMUpstreamSpeed>2000</EstimatedAnnexMUpstreamSpeed>
+                            </EstimatedSpeedInformation>
+                        </EstimatedSpeedInformation>
+                        <TelephoneNumber>01630656588</TelephoneNumber>
+                        <AccessLineID>01630656588</AccessLineID>
+                        <AccessLineStatus>BTLive</AccessLineStatus>
+                        <Postcode>TF9 3DJ</Postcode>
+                        <PostcodeMatch>Yes</PostcodeMatch>
+                        <NumberRangeHolder>BT</NumberRangeHolder>
+                        <NumberPortingInformation>NotSet</NumberPortingInformation>
+                        <WorkingLineDetails>
+                            <ProductType>PSTN Single Line</ProductType>
+                            <PendingCeaseOrderIndicator>N</PendingCeaseOrderIndicator>
+                        </WorkingLineDetails>
+                    </CharacteristicsBase>
+                </ResponseDetails>
+            </GetLineCharacteristicsResult>
+        </GetLineCharacteristicsResponse>
+    </soap:Body>
+</soap:Envelope>
