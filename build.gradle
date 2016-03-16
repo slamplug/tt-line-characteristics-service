@@ -12,6 +12,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.3.RELEASE")
         classpath("com.sun.xml.bind:jaxb-xjc:2.2.4-1")
+		classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
@@ -19,7 +20,9 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'docker'
 
+group = 'com.firstutility.talktalk'
 
 jar {
     baseName = 'tt-line-characteristics-service'
@@ -81,3 +84,35 @@ compileJava.dependsOn jaxb
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
+
+docker {
+    baseImage "ubuntu"
+    maintainer 'Simon Lamplugh "simon.lamplugh@first-utility.com"'
+}
+
+task buildDocker(type: Docker) {
+  push = false
+  applicationName = jar.baseName
+  
+  exposePort 8080
+  
+  volume "/app"
+  volume "/tmp"
+  
+  addFile "build/docker/${jar.baseName}-${jar.version}.jar", \
+  	"/app/${jar.baseName}.jar"
+  	
+  runCommand "bash -c 'touch /app/${jar.baseName}.jar'"
+  
+  entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', \
+  	'-jar', '/app/${jar.baseName}.jar'])
+  
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+    }
+  }
+}
+
+build.dependsOn buildDocker
