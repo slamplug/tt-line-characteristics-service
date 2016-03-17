@@ -86,7 +86,7 @@ task wrapper(type: Wrapper) {
 }
 
 docker {
-    baseImage "ubuntu"
+    baseImage "chrischristo/ubuntu-java8"
     maintainer 'Simon Lamplugh "simon.lamplugh@first-utility.com"'
 }
 
@@ -104,8 +104,8 @@ task buildDocker(type: Docker) {
   	
   runCommand "bash -c 'touch /app/${jar.baseName}.jar'"
   
-  entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', \
-  	'-jar', '/app/${jar.baseName}.jar'])
+  entryPoint(["java", "-Djava.security.egd=file:/dev/./urandom", \
+  	"-jar", "/app/${jar.baseName}.jar"])
   
   doFirst {
     copy {
